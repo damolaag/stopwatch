@@ -3,8 +3,9 @@ let display = document.getElementById("display");
 let startBtn = document.getElementById("start");
 let stopBtn = document.getElementById("stop");
 let resetBtn = document.getElementById("reset");
+let themeToggle = document.getElementById("theme-toggle");
 
-
+// Time variables
 let hours = 0;
 let minutes = 0;
 let seconds = 0;
@@ -14,11 +15,11 @@ let milliseconds = 0;
 let timer = null;
 let isRunning = false;
 
+// Update display function
 function updateDisplay() {
   let h = hours < 10 ? "0" + hours : hours;
   let m = minutes < 10 ? "0" + minutes : minutes;
   let s = seconds < 10 ? "0" + seconds : seconds;
-
 
   let ms;
   if (milliseconds < 10) {
@@ -32,7 +33,7 @@ function updateDisplay() {
   display.innerText = `${h}:${m}:${s}:${ms}`;
 }
 
-
+// Start button
 startBtn.addEventListener("click", function() {
   if (!isRunning) {
     isRunning = true;
@@ -59,13 +60,13 @@ startBtn.addEventListener("click", function() {
   }
 });
 
-
+// Stop button
 stopBtn.addEventListener("click", function() {
   clearInterval(timer);
   isRunning = false;
 });
 
-
+// Reset button
 resetBtn.addEventListener("click", function() {
   clearInterval(timer);
   isRunning = false;
@@ -74,4 +75,16 @@ resetBtn.addEventListener("click", function() {
   seconds = 0;
   milliseconds = 0;
   updateDisplay();
+});
+
+// 🌗 Theme toggle button
+themeToggle.addEventListener("click", function() {
+  document.body.classList.toggle("light");
+
+
+  if (document.body.classList.contains("light")) {
+    themeToggle.textContent = "🌞";
+  } else {
+    themeToggle.textContent = "🌙";
+  }
 });
