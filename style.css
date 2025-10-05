@@ -1,90 +1,114 @@
-
-let display = document.getElementById("display");
-let startBtn = document.getElementById("start");
-let stopBtn = document.getElementById("stop");
-let resetBtn = document.getElementById("reset");
-let themeToggle = document.getElementById("theme-toggle");
-
-// Time variables
-let hours = 0;
-let minutes = 0;
-let seconds = 0;
-let milliseconds = 0;
-
-
-let timer = null;
-let isRunning = false;
-
-// Update display function
-function updateDisplay() {
-  let h = hours < 10 ? "0" + hours : hours;
-  let m = minutes < 10 ? "0" + minutes : minutes;
-  let s = seconds < 10 ? "0" + seconds : seconds;
-
-  let ms;
-  if (milliseconds < 10) {
-    ms = "00" + milliseconds;
-  } else if (milliseconds < 100) {
-    ms = "0" + milliseconds;
-  } else {
-    ms = milliseconds;
-  }
-
-  display.innerText = `${h}:${m}:${s}:${ms}`;
+/* Default Dark Theme */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e1e2f;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-// Start button
-startBtn.addEventListener("click", function() {
-  if (!isRunning) {
-    isRunning = true;
-    timer = setInterval(function() {
-      milliseconds += 10;
+/* Stopwatch*/
+.stopwatch-box {
+  background-color: #2c2c3e;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  color: white;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-      if (milliseconds >= 1000) {
-        milliseconds = 0;
-        seconds++;
-      }
+.stopwatch-box h1 {
+  margin-bottom: 20px;
+}
 
-      if (seconds >= 60) {
-        seconds = 0;
-        minutes++;
-      }
+/* Display styling */
+#display {
+  background-color: #000;
+  color: #00ffcc;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: monospace;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 10px #00ffcc;
+}
 
-      if (minutes >= 60) {
-        minutes = 0;
-        hours++;
-      }
+/* Buttons layout */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
 
-      updateDisplay();
-    }, 10);
-  }
-});
+/* Button styles */
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-// Stop button
-stopBtn.addEventListener("click", function() {
-  clearInterval(timer);
-  isRunning = false;
-});
+#start {
+  background-color: #28a745;
+}
+#start:hover {
+  background-color: #218838;
+}
 
-// Reset button
-resetBtn.addEventListener("click", function() {
-  clearInterval(timer);
-  isRunning = false;
-  hours = 0;
-  minutes = 0;
-  seconds = 0;
-  milliseconds = 0;
-  updateDisplay();
-});
+#stop {
+  background-color: #dc3545;
+}
+#stop:hover {
+  background-color: #c82333;
+}
 
-// 🌗 Theme toggle button
-themeToggle.addEventListener("click", function() {
-  document.body.classList.toggle("light");
+#reset {
+  background-color: #007bff;
+}
+#reset:hover {
+  background-color: #0056b3;
+}
 
+/* Theme toggle button */
+#theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+}
 
-  if (document.body.classList.contains("light")) {
-    themeToggle.textContent = "🌞";
-  } else {
-    themeToggle.textContent = "🌙";
-  }
-});
+/* Light Theme */
+body.light {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+body.light .stopwatch-box {
+  background-color: white;
+  color: #222;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+body.light #display {
+  background-color: #e6e6e6;
+  color: #333;
+  box-shadow: inset 0 0 10px #ccc;
+}
+
+body.light #theme-toggle {
+  color: #333;
+}
